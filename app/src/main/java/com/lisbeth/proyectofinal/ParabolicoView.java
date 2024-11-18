@@ -27,6 +27,7 @@ public class    ParabolicoView extends View {
     public ParabolicoView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
+        //Comentario
     }
 
     public ParabolicoView(Context context) {
