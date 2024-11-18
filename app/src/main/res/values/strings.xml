@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">ProyectoFinal</string>
+    <string name="tituloprincipal">Movimiento Parabolico</string>
+    <string name="titulo1">MOVIMIENTO</string>
+    <string name="subtitulo1">PARABOLICO</string>
+
+    <string name="boton1">INICIO</string>
+
+    <string name="descripcion">Esta aplicación permite ingresar datos para analizar dos casos del movimiento parabólico.
+        Al modificar la velocidad inicial y el ángulo de lanzamiento, los usuarios pueden observar y comparar las
+        trayectorias de los proyectiles, facilitando la comprensión de los principios de la física.</string>
+
+    <string name="datos">DATOS</string>
+    <string name="titulo2">Menu</string>
+
+    <string name="caso1">Caso 1: Altura Inicial 0</string>
+    <string name="caso2">Caso 2: Con Altura Inicial</string>
+</resources>
