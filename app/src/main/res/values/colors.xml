@@ -3,4 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="pink">#f69495</color>
+    <color name="backgroundColor">#FAFAFA</color>
+    <color name="titleColor">#1E88E5</color>
+    <color name="descriptionColor">#757575</color>
+    <color name="dividerColor">#BDBDBD</color>
+    <color name="listBackgroundColor">#FFFFFF</color>
+    <color name="buttonColor">#1E88E5</color>
+    <color name="buttonTextColor">#FFFFFF</color>
 </resources>

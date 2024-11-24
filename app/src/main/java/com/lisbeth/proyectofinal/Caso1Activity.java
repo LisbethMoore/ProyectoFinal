@@ -1,14 +1,15 @@
 package com.lisbeth.proyectofinal;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+import com.lisbeth.proyectofinal.model.Datos;
+import com.lisbeth.proyectofinal.model.Manager;
 import java.text.DecimalFormat;
 
 public class Caso1Activity extends AppCompatActivity {
-
     SeekBar seekBarVelocidad, seekBarAngulo;
     TextView textVelocidad, textAngulo, outputResultados;
     Button btnCalcular, btnSimular;
@@ -22,7 +23,6 @@ public class Caso1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_caso1);
 
-        // Inicializar componentes
         seekBarVelocidad = findViewById(R.id.seekBarVelocidad);
         seekBarAngulo = findViewById(R.id.seekBarAngulo);
         textVelocidad = findViewById(R.id.textVelocidad);
@@ -32,7 +32,6 @@ public class Caso1Activity extends AppCompatActivity {
         outputResultados = findViewById(R.id.outputResultados);
         parabolicoView = findViewById(R.id.parabolicoView);
 
-        // Listener para el SeekBar de velocidad
         seekBarVelocidad.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -47,7 +46,6 @@ public class Caso1Activity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        // Listener para el SeekBar de ángulo
         seekBarAngulo.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -62,10 +60,7 @@ public class Caso1Activity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        // Listener para el botón de calcular
         btnCalcular.setOnClickListener(v -> calcularMovimiento());
-
-        // Listener para el botón de simular
         btnSimular.setOnClickListener(v -> simularMovimiento());
     }
 
@@ -73,15 +68,19 @@ public class Caso1Activity extends AppCompatActivity {
         double anguloRad = Math.toRadians(angulo);
         double g = 9.81;
 
-        // Cálculo del alcance y la altura máxima
         double alcance = Math.pow(velocidadInicial, 2) * Math.sin(2 * anguloRad) / g;
         double alturaMaxima = Math.pow(velocidadInicial * Math.sin(anguloRad), 2) / (2 * g);
 
-        // Mostrar los resultados
         DecimalFormat df = new DecimalFormat("#.##");
         String resultados = "Alcance: " + df.format(alcance) + " metros\n" +
                 "Altura máxima: " + df.format(alturaMaxima) + " metros";
+
         outputResultados.setText(resultados);
+
+        // Inserción en la base de datos
+        Manager manager = new Manager(this);
+        Datos datos = new Datos(velocidadInicial, angulo, 0, alcance, alturaMaxima);
+        manager.insertarDatos(datos);
     }
 
     private void simularMovimiento() {

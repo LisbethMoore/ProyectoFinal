@@ -15,4 +15,6 @@
 
     <string name="caso1">Caso 1: Altura Inicial 0</string>
     <string name="caso2">Caso 2: Con Altura Inicial</string>
+
+    <string name="btnhistorial">Historial</string>
 </resources>

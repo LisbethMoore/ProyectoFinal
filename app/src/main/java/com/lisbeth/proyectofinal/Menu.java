@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Menu extends AppCompatActivity {
-    Button btnCaso1, btnCaso2;
+    Button btnCaso1, btnCaso2, btnListado;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +20,7 @@ public class Menu extends AppCompatActivity {
 
         btnCaso1 = findViewById(R.id.btnCaso1);
         btnCaso2 = findViewById(R.id.btnCaso2);
+        btnListado = findViewById(R.id.btnListado);
 
         btnCaso1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +34,13 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this, Caso2Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnListado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu.this, ListarDatos.class);
                 startActivity(intent);
             }
         });
