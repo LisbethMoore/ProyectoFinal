@@ -10,4 +10,5 @@
     <color name="listBackgroundColor">#FFFFFF</color>
     <color name="buttonColor">#1E88E5</color>
     <color name="buttonTextColor">#FFFFFF</color>
+    <color name="azulRey">#0c6cad</color>
 </resources>

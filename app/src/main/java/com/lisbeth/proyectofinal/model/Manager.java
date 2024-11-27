@@ -6,44 +6,63 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Manager {
+
+    private BdHelper bdHelper;
     private SQLiteDatabase db;
 
     public Manager(Context context) {
-        BdHelper dbHelper = new BdHelper(context);
-        db = dbHelper.getWritableDatabase();
+        bdHelper = new BdHelper(context);
+    }
+
+    public void openBdWr() {
+        db = bdHelper.getWritableDatabase();
+    }
+
+    public void openBdRd() {
+        db = bdHelper.getReadableDatabase();
+    }
+    // Método para cerrar la base de datos de manera segura
+    public void closeBd() {
+        //verifica si la base de datos no es null y está abierta
+        if (db != null && db.isOpen()) {
+            //si la base de datos está abierta, la cierra
+            db.close();
+        }
     }
 
     public long insertarDatos(Datos datos) {
+        openBdWr();
         ContentValues values = new ContentValues();
-        values.put(Constantes.KEY_VELOCIDAD, datos.getVelocidadInicial());
-        values.put(Constantes.KEY_ANGULO, datos.getAngulo());
-        values.put(Constantes.KEY_ALTURA, datos.getAlturaInicial());
-        values.put(Constantes.KEY_ALCANCE, datos.getAlcance());
-        values.put(Constantes.KEY_ALTURA_MAX, datos.getAlturaMaxima());
-        return db.insert(BdHelper.TABLE_DATOS, null, values);
+        values.put("velocidad_inicial", datos.getVelocidadInicial());
+        values.put("angulo", datos.getAngulo());
+        values.put("altura_inicial", datos.getAlturaInicial());
+        values.put("alcance", datos.getAlcance());
+        values.put("altura_maxima", datos.getAlturaMaxima());
+        long result = db.insert("Datos", null, values);
+        closeBd();
+        return result;
     }
 
-    public List<Datos> listarDatos() {
-        List<Datos> datosList = new ArrayList<>();
-        Cursor cursor = db.query(BdHelper.TABLE_DATOS, null, null, null, null, null, null);
+    public ArrayList<Datos> listarDatos() {
+        openBdRd();
+        ArrayList<Datos> lista = new ArrayList<>();
+        Cursor cursor = db.query("Datos", null, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             do {
-                double velocidad = cursor.getDouble(cursor.getColumnIndexOrThrow(Constantes.KEY_VELOCIDAD));
-                double angulo = cursor.getDouble(cursor.getColumnIndexOrThrow(Constantes.KEY_ANGULO));
-                double altura = cursor.getDouble(cursor.getColumnIndexOrThrow(Constantes.KEY_ALTURA));
-                double alcance = cursor.getDouble(cursor.getColumnIndexOrThrow(Constantes.KEY_ALCANCE));
-                double alturaMax = cursor.getDouble(cursor.getColumnIndexOrThrow(Constantes.KEY_ALTURA_MAX));
+                Datos datos = new Datos();
+                datos.setId(cursor.getInt(0));
+                datos.setVelocidadInicial(cursor.getDouble(1));
+                datos.setAngulo(cursor.getDouble(2));
+                datos.setAlturaInicial(cursor.getDouble(3));
+                datos.setAlcance(cursor.getDouble(4));
+                datos.setAlturaMaxima(cursor.getDouble(5));
+                lista.add(datos); // almacenando los datos en la lista
 
-                Datos datos = new Datos(velocidad, angulo, altura, alcance, alturaMax);
-                datos.setId(cursor.getInt(cursor.getColumnIndexOrThrow(Constantes.KEY_ID)));
-                datosList.add(datos);
             } while (cursor.moveToNext());
         }
-        cursor.close();
-        return datosList;
+        return lista;
     }
 }

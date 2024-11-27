@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Caso1Activity"
     android:orientation="vertical"
-    android:background="@drawable/fond3">
+    android:background="@drawable/fond2">
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,7 +14,7 @@
         android:text="@string/caso1"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="30dp"
         android:textStyle="bold"/>
 
@@ -32,7 +32,7 @@
         android:id="@+id/seekBarVelocidad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:max="100"/>
+        android:max="300"/>
 
     <!-- SeekBar para Ángulo -->
     <TextView
@@ -48,7 +48,7 @@
         android:id="@+id/seekBarAngulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:max="90" />
+        android:max="180" />
 
     <Button
         android:id="@+id/btnCalcular"
@@ -57,7 +57,7 @@
         android:text="Calcular Movimiento"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:backgroundTint="@color/pink"/>
+        android:backgroundTint="@color/azulRey"/>
 
     <Button
         android:id="@+id/btnSimular"
@@ -66,7 +66,7 @@
         android:text="Simular Movimiento"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:backgroundTint="@color/pink"/>
+        android:backgroundTint="@color/azulRey"/>
 
     <TextView
         android:id="@+id/outputResultados"

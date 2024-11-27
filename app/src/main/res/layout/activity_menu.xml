@@ -7,16 +7,26 @@
     android:layout_height="match_parent"
     tools:context=".Menu"
     android:orientation="vertical"
-    android:background="@drawable/fond3">
+    android:background="@drawable/fond2">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tituloprincipal"
-        android:textColor="@color/white"
-        android:textSize="35dp"
         android:layout_gravity="center"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="130dp"
+        android:text="@string/titulo1"
+        android:textColor="@color/black"
+        android:textSize="50sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="@string/subtitulo1"
+        android:textColor="@color/black"
+        android:textSize="40sp"
         android:textStyle="bold"/>
 
     <Button
@@ -25,8 +35,8 @@
         android:layout_height="wrap_content"
         android:text="@string/caso1"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:backgroundTint="@color/pink"/>
+        android:layout_marginTop="70dp"
+        android:backgroundTint="@color/azulRey"/>
 
     <Button
         android:id="@+id/btnCaso2"
@@ -35,7 +45,7 @@
         android:text="@string/caso2"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:backgroundTint="@color/pink"/>
+        android:backgroundTint="@color/azulRey"/>
 
     <Button
         android:id="@+id/btnListado"
@@ -44,7 +54,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:text="@string/btnhistorial"
-        android:backgroundTint="@color/pink"/>
+        android:backgroundTint="@color/azulRey"/>
 
 
 

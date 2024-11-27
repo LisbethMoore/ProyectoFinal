@@ -27,7 +27,6 @@ public class    ParabolicoView extends View {
     public ParabolicoView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
-        //Comentario
     }
 
     public ParabolicoView(Context context) {
@@ -35,32 +34,33 @@ public class    ParabolicoView extends View {
         init();
     }
 
-    //Metodo init()
+    //Metodo init() inicializar la vista personalizada
     private void init() {
         // Pintura para la bolita
-        paint = new Paint();
+        paint = new Paint(); //crea un objeto Paint para dibujar en el lienzo
         paint.setColor(Color.RED);
-        paint.setStrokeWidth(5);
+        paint.setStrokeWidth(5);//establece el grosor del trazo en 5 pixeles
 
         // Pintura para la trayectoria
-        pathPaint = new Paint();
+        pathPaint = new Paint(); //crea un objeto Paint para dibujar la trayectoria
         pathPaint.setColor(Color.BLUE);
-        pathPaint.setStrokeWidth(3);
-        pathPaint.setStyle(Paint.Style.STROKE);
 
-        // Pintura para los textos (tiempo, velocidad, etc.)
+        pathPaint.setStrokeWidth(3);
+        pathPaint.setStyle(Paint.Style.STROKE);  //establece que la pintura se usara solo para el borde, no para rellenar la forma
+
+        //Pintura para los textos (tiempo, velocidad, etc.)
         textPaint = new Paint();
         textPaint.setColor(Color.BLACK);
         textPaint.setTextSize(40);
-        textPaint.setAntiAlias(true);
+        textPaint.setAntiAlias(true); //activa el suavizado de bordes para que el texto se vea mas nitido
     }
 
-    // Método para iniciar simulación sin altura inicial
+    //Método para iniciar simulación sin altura inicial
     public void simular(double velocidadInicial, double angulo) {
         simular(velocidadInicial, angulo, 0);
     }
 
-    // Método para iniciar simulación con altura inicial
+    //Método para iniciar simulación con altura inicial
     public void simular(double velocidadInicial, double angulo, double alturaInicial) {
         this.velocidadInicial = velocidadInicial;
         this.angulo = Math.toRadians(angulo);
@@ -68,21 +68,27 @@ public class    ParabolicoView extends View {
         this.isSimulating = true;
         this.t = 0;
 
-        // Calcular el tiempo de vuelo total
-        double velocidadVertical = velocidadInicial * Math.sin(this.angulo);
+        //calcular el tiempo de vuelo total
+        double velocidadVertical = velocidadInicial * Math.sin(this.angulo); // Calcula la velocidad vertical inicial usando el seno del ángulo
+        //tiempo de vuelo
         tiempoDeVuelo = (velocidadVertical + Math.sqrt(velocidadVertical * velocidadVertical + 2 * g * alturaInicial)) / g;
 
+
+        //crea un nuevo hilo para simular el movimiento de la parábola
+        //el hilo se ejecuta mientras isSimulating sea verdadero
         new Thread(new Runnable() {
             @Override
             public void run() {
+                //incrementa el tiempo 't' en pequeños intervalos (0.03 segundos)
                 while (isSimulating) {
                     t += 0.03;
-                    postInvalidate();
+                    postInvalidate();//redibuja la vista para actualizar la simulacion
 
+                    //detener la simulacion si el tiempo supera el tiempo de vuelo total
                     if (t > tiempoDeVuelo) {
-                        isSimulating = false; // Detener simulación si el tiempo supera el tiempo de vuelo
+                        isSimulating = false;
                     }
-
+                    // Pausa el hilo durante 30 ms para crear un efecto de animación suave
                     try {
                         Thread.sleep(30);
                     } catch (InterruptedException e) {
@@ -90,12 +96,12 @@ public class    ParabolicoView extends View {
                     }
                 }
             }
-        }).start();
+        }).start(); // Inicia el hilo
     }
 
     @Override
 
-    //Metodo onDraw
+    //Metodo onDraw : se utiliza para dibujar elementos (trayectoria de un proyectil)
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         // Definir el margen en píxeles (50px en este caso)
@@ -135,7 +141,7 @@ public class    ParabolicoView extends View {
         double velocidadX = velocidadInicial * Math.cos(angulo);
         double velocidadY = velocidadInicial * Math.sin(angulo) - g * t;
         double velocidadTotal = Math.sqrt(velocidadX * velocidadX + velocidadY * velocidadY);
-        canvas.drawText("Velocidad: " + String.format("%.2f", velocidadTotal) + " m/s", 50, 100, textPaint);
+        canvas.drawText("Rapidez Final: " + String.format("%.2f", velocidadTotal) + " m/s", 50, 100, textPaint);
 
         // Aceleración (es constante en caída libre: 9.81 m/s^2)
         canvas.drawText("Aceleración: " + g + " m/s²", 50, 150, textPaint);
@@ -148,6 +154,7 @@ public class    ParabolicoView extends View {
 
         // Altura actual (posición en el eje y)
         canvas.drawText("Altura actual: " + String.format("%.2f", y) + " metros", 50, 300, textPaint);
+
     }
 
     public void stopSimulation() {
